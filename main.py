@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template, send_from_directory
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=os.getcwd())
 
 def read_data_from_file():
     data = []
@@ -29,7 +29,7 @@ def index():
 @app.route('/database')
 def database():
     locations = read_data_from_file()
-    return send_from_directory(os.getcwd(), 'database.html')
+    return render_template('database.html', locations=locations)
 
 if __name__ == '__main__':
     app.run(debug=True)
